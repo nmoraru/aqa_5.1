@@ -4,22 +4,20 @@ import com.codeborne.selenide.Condition;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
-import static ru.netology.DataGenerator.*;
-import static ru.netology.DataGenerator.Registration.generate;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 
-import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Condition.cssValue;
+import static com.codeborne.selenide.Condition.exactText;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
+import static ru.netology.DataGenerator.*;
+import static ru.netology.DataGenerator.Registration.generate;
 
 public class RegistrationByCardInfoTest {
 
     private RegistrationByCardInfo dataTest = DataGenerator.Registration.generate();
-
-    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 
     @Test
     void shouldCorrectPlaningWithCorrectCity() {
