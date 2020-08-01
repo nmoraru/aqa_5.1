@@ -1,13 +1,19 @@
+package ru.netology;
+
 import com.github.javafaker.Faker;
+import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
+@Data
 public class DataGenerator {
-    public DataGenerator() {
+
+    DataGenerator() {
     }
 
     public static String getCity() {
@@ -28,18 +34,8 @@ public class DataGenerator {
         return randomElement;
     }
 
-    public static String getFullName() {
-        Faker faker = new Faker(new Locale("ru"));
-        return faker.name().fullName();
-    }
-
-    public static String getEngName() {
-        Faker faker = new Faker(new Locale("en-AU"));
-        return faker.name().fullName();
-    }
-
-    public static String getCnName() {
-        Faker faker = new Faker(new Locale("zh-CN"));
+    public static String getFullName(String locale) {
+        Faker faker = new Faker(new Locale(locale));
         return faker.name().fullName();
     }
 
@@ -65,6 +61,45 @@ public class DataGenerator {
         return faker.address().cityName();
     }
 
+    public static String getNumericName() {
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.random().nextInt(0, 1000).toString();
+    }
+
+    public static String getNameWithSpacesBeforeText() {
+        Faker faker = new Faker(new Locale("ru"));
+        return "      " + faker.name().firstName();
+    }
+
+    public static String getNameWithSpacesAfterText() {
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.name().firstName() + "      ";
+    }
+
+    public static String getNameWithMoreSpacesBetweenNameAndSurname() {
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.name().firstName() + "      " + faker.name().lastName();
+    }
+
+    public static String getNameWithHyphenInStartName() {
+        Faker faker = new Faker(new Locale("ru"));
+        return "-" + faker.name().firstName();
+    }
+
+    public static String getNameWithHyphenInFinishName() {
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.name().firstName() + " " + faker.name().lastName() + "-";
+    }
+
+    public static String getNameWithDoubleSurname() {
+        Faker faker = new Faker(new Locale("ru"));
+        return faker.name().firstName() + " " + faker.name().lastName() + "-" + faker.name().lastName();
+    }
+
+    public static String getDateUnderMin() {
+        return LocalDate.now().plusDays(2).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
+    }
+
     public static class Registration {
 
         private Registration() {
@@ -72,6 +107,7 @@ public class DataGenerator {
 
         public static RegistrationByCardInfo generate() {
             Faker faker = new Faker(new Locale("ru"));
+
             LocalDate dateFirstMeeting = LocalDate.now().plusDays(4);
             LocalDate dateSecondMeeting = LocalDate.now().plusDays(5);
 
@@ -79,9 +115,9 @@ public class DataGenerator {
                     getCity(),
                     faker.name().firstName(),
                     faker.name().lastName(),
-                    faker.phoneNumber().cellPhone(),
-                    dateFirstMeeting,
-                    dateSecondMeeting
+                    "+7" + faker.phoneNumber().cellPhone(),
+                    dateFirstMeeting.format(DateTimeFormatter.ofPattern("dd.MM.yyyy")),
+                    dateSecondMeeting.format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))
             );
         }
     }

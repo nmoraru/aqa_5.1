@@ -1,16 +1,17 @@
+package ru.netology;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
-@Data
 @AllArgsConstructor
+@Data
 public class RegistrationByCardInfo {
     private final String city;
     private final String firstName;
     private final String lastName;
     private final String phoneNumber;
-    private final LocalDate dateFirstMeeting;
-    private final LocalDate dateSecondMeeting;
+    private final String dateFirstMeeting;
+    private final String dateSecondMeeting;
+
 }
